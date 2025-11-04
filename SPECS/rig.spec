@@ -1,7 +1,7 @@
 Name:       rig
 Summary:    Monitor a system for events and trigger specific actions
 Version:    1.1
-Release:    6%{?dist}
+Release:    7%{?dist}
 Url:        https://github.com/TurboTurtle/rig
 Source0:    %{url}/archive/%{name}-%{version}.tar.gz
 License:    GPLv2
@@ -14,6 +14,7 @@ BuildRequires: python3dist(psutil)
 
 Patch1: rig-fix-rig-list.patch
 Patch2: rig-full-random-temp.patch
+Patch3: sos-modify-sosreport-binary.patch
 
 %description
 Rig is a utility designed to watch or monitor specific system resources (e.g.
@@ -23,8 +24,9 @@ troubleshooting and data collection for randomly occurring events.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
+%patch -p1 1
+%patch -p1 2
+%patch -p1 3
 
 %build
 %py3_build
@@ -45,6 +47,9 @@ install -p -m644 man/en/rig.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/
 %doc README.md
 
 %changelog
+* Wed Aug 06 2025 Jose Castillo <jcastill@redhat.com> - 1.1-7
+- Add fix to avoid using deprecated sosreport command.
+
 * Tue Jun 14 2022 Jake Hunsaker <jhunsake@redhat.com> - 1.1-6
 - Backport change to temp dir creation to ignore rig ID
 

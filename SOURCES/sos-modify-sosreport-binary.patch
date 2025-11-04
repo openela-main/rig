@@ -1,0 +1,40 @@
+From 57c2d62fd86522714e3eacc3fcd76ff8ad780e0b Mon Sep 17 00:00:00 2001
+From: Jose Castillo <jcastillo@redhat.com>
+Date: Thu, 7 Aug 2025 09:04:25 +0100
+Subject: [PATCH] [sos] Modify sosreport binary
+
+The 'sosreport' command has been deprecated in
+sos upstream, and users should use now 'sos report' instead.
+This commit prevents an error that occurs
+when calling the old sos binary.
+
+Signed-off-by: Jose Castillo <jcastillo@redhat.com>
+---
+ rig-c9s/rig-rig-1.1/rigging/actions/sosreport.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/rigging/actions/sosreport.py b/rigging/actions/sosreport.py
+index 5f7435a..abf6471 100644
+--- a/rigging/actions/sosreport.py
++++ b/rigging/actions/sosreport.py
+@@ -14,7 +14,7 @@ from pipes import quote
+ from rigging.actions import BaseAction
+ from rigging.exceptions import CannotConfigureRigError
+
+-SOS_BIN = '/usr/sbin/sosreport --batch'
++SOS_BIN = '/usr/sbin/sos report --batch'
+
+
+ class SoSReport(BaseAction):
+@@ -23,7 +23,7 @@ class SoSReport(BaseAction):
+     enabling_opt = 'sosreport'
+     enabling_opt_desc = 'Generate an sos report when triggered'
+     priority = 100
+-    required_binaries = ('sosreport',)
++    required_binaries = ('sos',)
+     sos_opts = ('only_plugins', 'skip_plugins', 'enable_plugins',
+                 'plugin_option')
+
+-- 
+2.50.1
+

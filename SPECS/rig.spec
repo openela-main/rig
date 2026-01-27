@@ -24,9 +24,10 @@ troubleshooting and data collection for randomly occurring events.
 
 %prep
 %setup -q
-%patch -p1 1
-%patch -p1 2
-%patch -p1 3
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+
 
 %build
 %py3_build
